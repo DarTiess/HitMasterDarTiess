@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Player.States
+namespace Player
 {
     public interface IWayPoints
     {

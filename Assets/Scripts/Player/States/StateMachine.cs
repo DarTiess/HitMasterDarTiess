@@ -8,7 +8,6 @@ namespace Player.States
     {
         private State _currentState;
         private Dictionary<Type, State> _states = new Dictionary<Type, State>();
-
         public void AddState(State state)
         {
             _states.Add(state.GetType(), state);
@@ -34,5 +33,7 @@ namespace Player.States
         {
             _currentState?.Update();
         }
+        
+        
     }
 }

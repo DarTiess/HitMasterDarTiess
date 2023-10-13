@@ -7,21 +7,33 @@ using UnityEngine.AI;
 public class NavMeshSettings : MonoBehaviour
 {
 
+#pragma warning disable 0649 
+
+    [SerializeField] private bool _isUpdate;    
+    [SerializeField] private float _timeUpdate;
+    private float _timerUpdate;
+
+#pragma warning restore 0649  
+
     private NavMeshSurface _surface;
 
-    public static NavMeshSettings Instance;
-
-    private void Awake()
-    {
-        Instance = this;
-    }
     private void Start()
     {
         _surface = GetComponent<NavMeshSurface>();
         _surface.BuildNavMesh();
     }
 
-   public void UpdateNavMesh()
+    void Update()
+    {
+        if (!_isUpdate) return;
+        _timerUpdate += Time.deltaTime;
+        if (_timerUpdate < _timeUpdate) return;
+        _timerUpdate = 0;
+
+        UpdateNavMesh();  
+    }
+
+    private void UpdateNavMesh()
     {
         _surface.UpdateNavMesh(_surface.navMeshData);
         _surface.AddData();

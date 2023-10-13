@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Infrastructure.Level
+namespace Level
 {
     [CreateAssetMenu(fileName = "LevelLoader", menuName = "LevelLoader", order = 51)]
     public class LevelLoader : ScriptableObject, ILevelLoader

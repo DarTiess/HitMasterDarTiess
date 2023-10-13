@@ -17,26 +17,24 @@ namespace Player.States
         
         public override void Enter(Transform target)
         {
-            Debug.Log("State Idle");
             _transform.position = target.position;
             _animator.IdleAnimation();
             
         }
 
+        public override void Update()
+        {
+            GetNextState();
+        }
+
         private void GetNextState()
         {
-            Debug.Log("Get Steta");
             _target = _waypoint.GetWayPoint();
             if (_target != null)
             {
                 _stateMachine.SetState<StateMove>(_target);
                 _target = null;
             }
-        }
-
-        public override void Update()
-        {
-            GetNextState();
         }
     }
 }

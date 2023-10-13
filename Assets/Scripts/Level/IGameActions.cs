@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Level
+﻿namespace Level
 {
     public interface IGameActions
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Player.States
+namespace Player
 {
     public class PlayerAnimator
     {
@@ -16,21 +16,20 @@ namespace Player.States
         
         public void WalkAnimation()
         {
-            Debug.Log("Walk Anim");
             _animator.SetBool(IDLE, false);
             _animator.SetBool(WALK, true);
+            _animator.SetBool(ATTACK, false);
         }
 
         public void IdleAnimation()
         {
-            Debug.Log("Idle Anim");
             _animator.SetBool(IDLE, true);
             _animator.SetBool(WALK, false);
+            _animator.SetBool(ATTACK, false);
         }
 
         public void AttackAnimation()
         {
-            Debug.Log("Attack Anim");
             _animator.SetBool(WALK, false);
             _animator.SetBool(ATTACK, true);
         }

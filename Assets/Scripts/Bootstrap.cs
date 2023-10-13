@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using Bullets;
 using CamFollow;
-using DefaultNamespace;
-using Infrastructure.Level;
-using Player.States;
+using Enemy;
+using Level;
+using Player;
 using UI;
 using UnityEngine;
 
@@ -20,9 +21,12 @@ public class Bootstrap : MonoBehaviour
     [SerializeField] private float _walkSpeed;
     [SerializeField] private float _stopDistance;
     [Space(20)]
+    [Header("Bullet Settings")]
+    [SerializeField] private BulletConfig _bulletConfig;
+    [Space(20)]
     [Header("Enemies Settings")]
     [SerializeField] private List<EnemiesWave> _enemyWaves;
-    [SerializeField] private EnemyContainer _enemyPrefab;
+    [SerializeField] private EnemyConfig _enemyConfig;
     [SerializeField] private EnemySpawner _enemySpawnerPrefab;
 
     private GameEventsActions _gameEventsActions;
@@ -36,19 +40,30 @@ public class Bootstrap : MonoBehaviour
    {
        CreateGameEventsActions();
        CreateUICanvas();
-
-       _wayPoint = new WayPoints(_waypointsList);
-
-       _player = Instantiate(_playerPrefab);
-       _player.Initialize(_gameEventsActions,_wayPoint,_walkSpeed, _stopDistance);
-
+       CreateWayPoints();
+       CreateAndInitEnemySpawner();
+       CreateAndInitPlayer();
        InitCameraFollower();
-
-       _enemySpawner = Instantiate(_enemySpawnerPrefab);
-       _enemySpawner.Initialize(_enemyPrefab, _enemyWaves, _gameEventsActions);
    }
 
-   private void InitCameraFollower()
+    private void CreateAndInitEnemySpawner()
+    {
+        _enemySpawner = Instantiate(_enemySpawnerPrefab);
+        _enemySpawner.Initialize(_enemyConfig, _enemyWaves, _gameEventsActions);
+    }
+
+    private void CreateAndInitPlayer()
+    {
+        _player = Instantiate(_playerPrefab);
+        _player.Initialize(_gameEventsActions, _gameEventsActions, _wayPoint,_enemySpawner, _walkSpeed, _stopDistance, _bulletConfig);
+    }
+
+    private void CreateWayPoints()
+    {
+        _wayPoint = new WayPoints(_waypointsList);
+    }
+
+    private void InitCameraFollower()
    {
        _camFollower = Camera.main.GetComponent<CamFollower>();
        _camFollower.Init(_gameEventsActions, _player.transform);

@@ -1,7 +1,6 @@
-﻿using Infrastructure.Level;
+﻿using Level;
 using UI.UIPanels;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace UI
 {
@@ -19,11 +18,10 @@ namespace UI
         {
             _gameActions = gameActions;
             _gameEvents = gameEvents;
-         
-     
+
             _gameEvents.LevelStart += OnGameStart;
             _gameEvents.FinishGame += OnFinishGame;
-
+            
             _panelMenu.ClickedPanel += OnPlayGame;
             _panelFinished.ClickedPanel += OnRestartGame;
             _panelInGame.ClickedPanel += OnPauseGame;
@@ -34,11 +32,10 @@ namespace UI
         private void OnDisable()
         {
             _gameEvents.LevelStart -= OnGameStart;
-          
+            _gameEvents.FinishGame -= OnFinishGame;
             _panelMenu.ClickedPanel -= OnPlayGame;
             _panelFinished.ClickedPanel -= OnRestartGame;
             _panelInGame.ClickedPanel -= OnPauseGame;
-           
         }
 
         private void OnGameStart()      
@@ -49,7 +46,6 @@ namespace UI
 
         private void OnFinishGame()
         {
-            Debug.Log("Level Finished");  
             HideAllPanels();
             _panelFinished.Show();
         }

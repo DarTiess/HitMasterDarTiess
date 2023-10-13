@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Infrastructure.Level
+namespace Level
 {
     public interface IGameEvents
     {

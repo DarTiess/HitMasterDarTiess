@@ -25,7 +25,6 @@ namespace Player.States
         }
         public override void Enter(Transform target)
         {
-            Debug.Log("State Move");
             _navMesh.isStopped = false;
             _animator.WalkAnimation();
             _target = target;
@@ -41,7 +40,6 @@ namespace Player.States
             if (Vector3.Distance(_transform.position, _target.transform.position) <= _stopDistance)
             {
                 _stateMachine.SetState<StateAttack>(_target);
-
             }
         }
 

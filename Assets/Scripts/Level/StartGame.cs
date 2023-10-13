@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Infrastructure.Level
+namespace Level
 {
     public class StartGame : MonoBehaviour
     {
